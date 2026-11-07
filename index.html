@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>whola
+    </title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="./bidyow.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <!-- Background Music -->
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="./hasd.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Intro Screen -->
+    <div class="intro-screen" id="introScreen">
+        <button class="enter-btn" id="enterBtn">
+            <span></span> View Profile
+        </button>
+    </div>
+
+    <!-- Main Profile Card -->
+    <div class="profile-card">
+
+        <!-- Profile Picture -->
+        <div class="profile-picture">
+            <img src="./avatar.jpg" alt="My Profile">
+        </div>
+
+        <!-- Personal Information -->
+        <h1 class="name">vun</h1>
+
+        <h3 class="username">@Kabutenyo</h3>
+
+        <p class="description">Alamat ng talangka</p>
+
+        <!-- Spotify Music Card -->
+        <div class="music-section">
+
+            <div class="music-card">
+
+                <div class="song-info">
+
+                    <img src="./grizel.png"
+                         alt="Album Cover"
+                         class="album-cover">
+
+                    <div class="song-details">
+                        <h3>Grizelda</h3>
+                        <p>Lamanila</p>
+                    </div>
+
+                </div>
+
+                <a href="https://open.spotify.com/track/5MYLVEGw2vHSoTowKzU2K0?si=81529e70f9c94307"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="listen-btn">
+                    ◉ Listen
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Social Media -->
+        <div class="social-links">
+
+            <a href="https://www.roblox.com/users/83921331/profile"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="roblox-link">
+
+    <img src="./rolbox.png" alt="Roblox">|
+
+    <a href="https://www.roblox.com/users/83921331/profile"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="roblox-link">
+
+    <img src="./rolbox.png" alt="Roblox">
+
+</a>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <span>✦ Etivacquatro</span>
+        </div>
+
+    </div>
+
+    <!-- Intro, Music, and 3D Tilt Script -->
+    <script>
+
+        const bgMusic = document.getElementById("backgroundMusic");
+        const enterBtn = document.getElementById("enterBtn");
+        const introScreen = document.getElementById("introScreen");
+        const card = document.querySelector(".profile-card");
+
+        bgMusic.volume = 0.25;
+
+        // View Profile Button
+        enterBtn.addEventListener("click", () => {
+
+            // Start background music
+            bgMusic.play().catch(error => {
+                console.log("Music playback failed:", error);
+            });
+
+            // Remove background blur
+            document.body.classList.add("entered");
+
+            // Fade out intro screen
+            introScreen.classList.add("hide");
+
+            // Show profile card
+            setTimeout(() => {
+                card.classList.add("show");
+            }, 400);
+
+        });
+
+        // 3D Tilt Effect
+        card.addEventListener("mousemove", (e) => {
+
+            if (!card.classList.contains("show")) return;
+
+            const rect = card.getBoundingClientRect();
+
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+
+            card.style.transform =
+                `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+
+        });
+
+        // Reset Card Position
+        card.addEventListener("mouseleave", () => {
+
+            card.style.transform =
+                "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+
+        });
+
+    </script>
+
+</body>
+</html>
